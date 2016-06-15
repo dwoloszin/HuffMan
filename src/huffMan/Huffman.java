@@ -113,10 +113,7 @@ public class Huffman {
             
   
          }
-         System.out.println(nos.get(0).getFreq());
-         System.out.println("");
-
-        
+       
         //parte 4 - atualiza raiz da arvore com o no que restou na lista | this.raiz = nos.get(0);
          this.raiz = nos.get(0);
         //pode imprimir a arvore depois de atualizar a raiz para dar uma conferida
@@ -136,12 +133,17 @@ public class Huffman {
         //codigos['a'][4] = 1;
         int codigos[][] = new int[256][];
         
+        
+        
+        
         //parte 6 - preencher a tabela de códigos percorrendo a arvore, guardando o caminho em 
         //pilha e atualizando a tabela sempre que encontrar um nó folha
         //fiz um metodo auxiliar da pilha, para que seja possivel obter 
         //os valores da pilha sem ter que desempilhar e empilhar tudo denovo
         //método - int[] fotografiaPilha ()
         Pilha pilha = new Pilha ();
+        
+        
        
         //seu código para obter os códigos de cada caracter vai aqui
         
@@ -281,4 +283,35 @@ public class Huffman {
         printAux(no.getEsq(), nivel+1);
         printAux(no.getDir(), nivel+1);
     }
+    
+    
+    public void percorrerArvore(){
+        if(raiz != null){
+            Lista lista = new Lista();
+            int tamanho = 0;
+            percorrerArvoreAux(raiz,lista,tamanho);
+    
+        }
+    }
+    
+    private void percorrerArvoreAux(Node node, Lista lista, int tamanho){
+        if(node.getEsq() != null){
+            percorrerArvoreAux(node.getEsq(),lista, tamanho);
+            lista.inserirValor(0);
+            tamanho +=1;
+        }
+        
+        
+        
+        
+        if(node.getDir() != null){
+            percorrerArvoreAux(node.getDir(),lista,tamanho);
+            lista.inserirValor(1);
+            tamanho +=1;
+        }
+    
+    }
+    
+    
+    
 }

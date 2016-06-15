@@ -6,6 +6,35 @@ import java.util.ArrayList;
 public class Lista {
         
     private ArrayList<Node> data = new ArrayList<Node> ();
+    private ArrayList listaValor = new ArrayList();
+    
+
+    
+    public void inserirValor(int valor){
+        listaValor.add(valor);
+        
+    }
+    
+    public void removerValor(){
+        if(!listaValor.isEmpty())
+            listaValor.remove(listaValor.size() - 1);
+    }
+    
+    public int[] getListaValor(){
+        int[] aux = new int[listaValor.size()];
+        
+        for(int i = 0; i < listaValor.size(); i++){
+            aux[i] = (int)listaValor.get(i);
+        }
+        return aux;
+    
+    }
+    
+    
+    
+    
+    
+    
     
     public void inserir (Node no) {
         data.add(no);
