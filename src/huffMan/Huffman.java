@@ -40,21 +40,89 @@ public class Huffman {
                      System.out.println("freq['\\r']="+freq[i]);                
             }
         }
-        
-         Lista nos = new Lista();
-        //parte 2 - cria lista de nós
-         
-        
+
         //seu código para criar a lista de nós vai aqui
+        Lista nos = new Lista();
+        //percorre o vetor, caso o freq seja maior q ZERO, cria um node adicionando a letra e a frequencia. Insere na lista o NODE.
+         for (int i = 0; i < 256; i+=1) {
+            //soh imprime se a frequencia for maior que zero
+            if (freq[i]>0) {
+                Node node = new Node();
+                node.setFreq(freq[i]);
+                node.setCaracter((char)i);
+                nos.inserir(node);
+            }
+         }
+         //verificar se a lista esta correta. PRint List
+         //nos.printLista();
         
          //parte 3 - monta a arvore, iterando sobre a lista até ela ter tamanho 1
          //seu código de montagem da arvore na lista vai aqui
+         //variaveis de controle
+         Integer menor = Integer.MAX_VALUE;
+         Integer indice = 0;
+         Node novo1 = new Node();
+         Node novo2 = new Node();
+         
+         
+         //MONTAR A ARVORE
+         while(nos.tamanho() > 1){
+             //percorre a lista e pega o menor valor
+            for(int i = 0; i < nos.tamanho(); i++){
+                if(nos.get(i).getFreq() < menor){
+                    indice = i;
+                    menor = nos.get(i).getFreq();
+                }
+            }
+            //variaveis de controle
+            //associar o menor valor ao novo node
+            //ressetar as variaveis
+            novo1 = nos.get(indice);
+            nos.remover(indice);
+            menor = Integer.MAX_VALUE;
+            
+            //percorre a lista e pega o menor valor
+            for(int i = 0; i < nos.tamanho(); i++){
+                if(nos.get(i).getFreq() < menor){
+                    indice = i;
+                    menor = nos.get(i).getFreq();
+                }
+            }
+            //variaveis de controle
+            //associar o menor valor ao novo node
+            //ressetar as variaveis
+            novo2 = nos.get(indice);
+            nos.remover(indice);
+            menor = Integer.MAX_VALUE;
+            
+            Node novo3 = new Node();
+            novo3.setFreq(novo1.getFreq() + novo2.getFreq());
+            
+            
+            // garante que o menor fique sempre a esquerda
+            if(novo1.getFreq() < novo2.getFreq()){
+                novo3.setEsq(novo1);
+                novo3.setDir(novo2);
+            }
+            else{
+                novo3.setEsq(novo2);
+                novo3.setDir(novo1);
+            }
+            
+            nos.inserir(novo3);
+            
+  
+         }
+         System.out.println(nos.get(0).getFreq());
+         System.out.println("");
+
         
         //parte 4 - atualiza raiz da arvore com o no que restou na lista | this.raiz = nos.get(0);
+         this.raiz = nos.get(0);
         //pode imprimir a arvore depois de atualizar a raiz para dar uma conferida
-        //this.print ();
+        this.print();
+         //parte 5 - cria tabela de códigos 
         
-        //parte 5 - cria tabela de códigos 
         //SUGESTÃO - usar uma matriz de inteiros
         //sabemos que tem até 256 tipos diferente de caracteres na nossa tabela de 
         //frequencia, mas ainda nao sabemos o tamanho dos códigos.

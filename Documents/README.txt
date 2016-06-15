@@ -29,6 +29,6 @@ Como executar?
 
 Na linha de comando, dentro da pasta com o jar (lembre-se de copiar os arquivos textos para a pasta), use:
 
-Compactar: java -jar Huffman.jar -c tigre.txt tigre .huf
+Compactar: java -jar Huffman.jar -c tigre.txt tigre.huf
 
 Descompactar: java -jar Huffman.jar -d tigre .huf tigre2.txt

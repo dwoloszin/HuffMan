@@ -12,6 +12,10 @@ package huffMan;
 public class Main {
     
     public static void main (String [] args) {
+        Huffman huff = new Huffman();
+        
+        
+        
         try {
             if (args.length < 3) {
                 System.out.println("Compactador / Descompactador de Huffman");
@@ -21,9 +25,11 @@ public class Main {
                 System.out.println("Compactar: java -jar huffman.jar -c arquivoTexto.txt arquivoBinario.huf");
                 System.out.println("Descompactar: java -jar huffman.jar -d arquivoBinario.huf arquivoTexto.txt");
                 System.exit(1);
+                
             }
             //HuffmanExemplo huf = new HuffmanExemplo ();
             Huffman huf = new Huffman ();
+            
             if (args[0].equals("-c")) {
                 huf.compactar(args[1], args[2]);
             }
@@ -34,9 +40,9 @@ public class Main {
             e.printStackTrace();
         }
         
-    
+     
     }
     
-    
+   
     
 }

@@ -24,6 +24,13 @@ public class Lista {
         return data.size();
     }
     
+    public void printLista(){
+        for(int i = 0; i < data.size(); i++){
+            if(data.get(i).getFreq() > 0)
+                System.out.println(data.get(i).getCaracter() + ":" + data.get(i).getFreq());
+        
+        }
     
+    }
     
 }
