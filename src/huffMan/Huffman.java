@@ -132,6 +132,14 @@ public class Huffman {
         //codigos['a'][3] = 0;
         //codigos['a'][4] = 1;
         int codigos[][] = new int[256][];
+        percorrerArvore(raiz);
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -285,30 +293,39 @@ public class Huffman {
     }
     
     
-    public void percorrerArvore(){
+    public void percorrerArvore(Node raiz){
         if(raiz != null){
             Lista lista = new Lista();
-            int tamanho = 0;
-            percorrerArvoreAux(raiz,lista,tamanho);
+            
+            lista = percorrerArvoreAux(raiz,lista);
+            //lista.printListaInt();
     
         }
     }
     
-    private void percorrerArvoreAux(Node node, Lista lista, int tamanho){
-        if(node.getEsq() != null){
-            percorrerArvoreAux(node.getEsq(),lista, tamanho);
-            lista.inserirValor(0);
-            tamanho +=1;
+    //percorrer arvore retornando a lista de indices
+    private Lista percorrerArvoreAux(Node node, Lista lista){
+        
+        if(!node.ehFolha()){
+            if(node.getEsq() != null){
+                lista.inserirValor(0);
+                percorrerArvoreAux(node.getEsq(),lista);
+            }
+            
+            if(node.getDir() != null){
+                lista.inserirValor(1);
+                percorrerArvoreAux(node.getDir(),lista);
+                
+            }
+            
+   
         }
-        
-        
-        
-        
-        if(node.getDir() != null){
-            percorrerArvoreAux(node.getDir(),lista,tamanho);
-            lista.inserirValor(1);
-            tamanho +=1;
-        }
+        //qse certo.. vmo q vmo
+        System.out.print(node.getCaracter() + ":");
+        lista.printListaInt();
+        System.out.println("\n");
+        lista.removerValor();
+        return lista;
     
     }
     

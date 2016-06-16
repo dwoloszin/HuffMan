@@ -62,4 +62,19 @@ public class Lista {
     
     }
     
+    public void clean(){
+        listaValor.clear();
+    }
+    
+    public void printListaInt(){
+        for(int i = 0; i < listaValor.size(); i++){
+            System.out.print((int)listaValor.get(i) + ", ");
+        
+        }
+    
+    }
+    
+    
+    
+    
 }
