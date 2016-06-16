@@ -323,6 +323,7 @@ public class Huffman {
         //qse certo.. vmo q vmo
         System.out.print(node.getCaracter() + ":");
         lista.printListaInt();
+        // gerar uma lista com o caracter e a sequencia de bits
         System.out.println("\n");
         lista.removerValor();
         return lista;
