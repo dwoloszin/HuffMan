@@ -15,12 +15,41 @@ public class Node {
     private char caracter;
     private Node esq;
     private Node dir;
+    private Lista lista;
     
     public Node () {
         freq = null;
         esq = null;
         dir = null;
+        lista = new Lista();
      }
+    
+    public void inserirlist(int valor){
+        lista.inserirValor(valor);
+    }
+    
+    public void removerlista(int indice){
+    lista.remover(indice);
+    }
+    
+    public Lista getLista(){
+       return lista; 
+    
+    }
+    
+    public void setLista(Lista listaa){
+        this.lista = listaa;
+    }
+    
+    public void printLista(){
+        System.out.print("Node:");
+        lista.printListaInt();
+        System.out.println("\n");
+    
+    }
+    
+            
+    
 
     public Integer getFreq() {
         return freq;

@@ -323,7 +323,12 @@ public class Huffman {
         //qse certo.. vmo q vmo
         System.out.print(node.getCaracter() + ":");
         lista.printListaInt();
+        //grava a informacao do codigo binario no proprio no folha
+        if(node.getDir() == null && node.getEsq() == null){
+            node.setLista(lista);
+        }
         // gerar uma lista com o caracter e a sequencia de bits
+        node.printLista();
         System.out.println("\n");
         lista.removerValor();
         return lista;
