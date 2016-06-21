@@ -5,26 +5,26 @@ import java.util.ArrayList;
 //* Lista que pode ser usada para armazenar os nós na montagem da árvore de huffman
 public class Lista {
         
-    private ArrayList<Node> data = new ArrayList<Node> ();
-    private ArrayList listaValor = new ArrayList();
+    private ArrayList<Node> listaNode = new ArrayList<Node> ();
+    private ArrayList listaInt = new ArrayList();
     
 
     
-    public void inserirValor(int valor){
-        listaValor.add(valor);
+    public void inserirValorInt(int valor){
+        listaInt.add(valor);
         
     }
     
-    public void removerValor(){
-        if(!listaValor.isEmpty())
-            listaValor.remove(listaValor.size() - 1);
+    public void removerValorInt(){
+        if(!listaInt.isEmpty())
+            listaInt.remove(listaInt.size() - 1);
     }
     
-    public int[] getListaValor(){
-        int[] aux = new int[listaValor.size()];
+    public int[] getListaInt(){
+        int[] aux = new int[listaInt.size()];
         
-        for(int i = 0; i < listaValor.size(); i++){
-            aux[i] = (int)listaValor.get(i);
+        for(int i = 0; i < listaInt.size(); i++){
+            aux[i] = (int)listaInt.get(i);
         }
         return aux;
     
@@ -36,70 +36,52 @@ public class Lista {
     
     
     
-    public void inserir (Node no) {
-        data.add(no);
+    public void inserirNode (Node no) {
+        listaNode.add(no);
     }
     
-    public void remover (int idx) {
-        data.remove(idx);
+    public void removerNode (int idx) {
+        listaNode.remove(idx);
     }
     
     
-    public Node get (int idx){
-        return data.get(idx);
+    public Node getNode (int idx){
+        return listaNode.get(idx);
     }
     
-    public int tamanhoDados () {
-        return data.size();
+    public int tamanhoNode () {
+        return listaNode.size();
     }
     
-    public int tamanholistaValor () {
-        return listaValor.size();
+    public int tamanhoInt () {
+        return listaInt.size();
     }
     
-    public void printLista(){
-        for(int i = 0; i < data.size(); i++){
-            if(data.get(i).getFreq() > 0)
-                System.out.println(data.get(i).getCaracter() + ":" + data.get(i).getFreq());
+    public void printListaNode(){
+        for(int i = 0; i < listaNode.size(); i++){
+            if(listaNode.get(i).getFreq() > 0)
+                System.out.println(listaNode.get(i).getCaracter() + ":" + listaNode.get(i).getFreq());
         
         }
     
     }
     
     public void clean(){
-        listaValor.clear();
-        listaValor.clear();
+        listaInt.clear();
+        listaInt.clear();
     }
     
     public void printListaInt(){
-        for(int i = 0; i < listaValor.size(); i++){
-            System.out.print((int)listaValor.get(i) + ", ");
+        for(int i = 0; i < listaInt.size(); i++){
+            System.out.print((int)listaInt.get(i) + ", ");
         
         }
     
     }
     
-    public int getListaValor(int indice){
-    return (int)listaValor.get(indice);
+    public int getListaIntValor(int indice){
+    return (int)listaInt.get(indice);
     
     }
-    
-    public void printListaNoComValores(){
-        for(int i = 0; i < data.size(); i++){
-            System.out.print(data.get(i).getCaracter() + ":[");
-            Lista lista1 = new Lista();
-            lista1 = data.get(i).getLista();
-            for(int j = 0; j < lista1.tamanholistaValor(); j++){
-                System.out.print(lista1.getListaValor(j));  
-            
-            }
-            System.out.println("");
-        
-        }
-    
-    }
-    
-    
-    
-    
+   
 }

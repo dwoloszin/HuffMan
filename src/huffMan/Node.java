@@ -15,21 +15,21 @@ public class Node {
     private char caracter;
     private Node esq;
     private Node dir;
-    private Lista lista;
+    private int listaInt[];
     
     public Node () {
         freq = null;
         esq = null;
         dir = null;
-        lista = new Lista();
+        listaInt = null;
      }
     
-    public int getListaValor(int indice){
-        return lista.getListaValor(indice);
+    public int getListaInt(int indice){
+        return listaInt[indice];
     
     }
-    public int getListaTamanho(){
-        return lista.tamanholistaValor();
+    public int tamanhoInt(){
+        return listaInt.length;
     
     }
     
@@ -37,31 +37,39 @@ public class Node {
 
     
     
-    public void inserirlist(int valor){
-        lista.inserirValor(valor);
-    }
+   
     
-    public void removerlista(int indice){
-    lista.remover(indice);
-    }
+
     
-    public Lista getLista(){
-       return lista; 
+    public int[] getListaInt(){
+       return listaInt; 
     
     }
     
-    public void setLista(Lista listaa){
-        this.lista = listaa;
+    public void setListaInt(Lista listaa){
+        listaInt = new int [listaa.tamanhoInt()];
+        for (int i=0; i< listaa.tamanhoInt(); i+=1) {
+            listaInt[i]= listaa.getListaIntValor(i);
+        }
+        
     }
     
     public void printLista(){
         //se esquerda e direita nulos, entao achei um no folha!
         if(dir == null && esq == null){
             System.out.print("Node [" + caracter + "] :");
-            lista.printListaInt();
+            printListaint();
             System.out.println("\n");
         }
         
+    
+    }
+    
+    public void printListaint(){
+        if (listaInt != null) {
+            for (int i=0; i < listaInt.length; i+=1)
+                System.out.print(listaInt[i]+", ");
+        }
     
     }
     

@@ -53,7 +53,7 @@ public class Huffman {
                 Node node = new Node();
                 node.setFreq(freq[i]);
                 node.setCaracter((char)i);
-                nos.inserir(node);
+                nos.inserirNode(node);
             }
          }
          //verificar se a lista esta correta. PRint List
@@ -69,33 +69,33 @@ public class Huffman {
          
          
          //MONTAR A ARVORE
-         while(nos.tamanhoDados() > 1){
+         while(nos.tamanhoNode() > 1){
              //percorre a lista e pega o menor valor
-            for(int i = 0; i < nos.tamanhoDados(); i++){
-                if(nos.get(i).getFreq() < menor){
+            for(int i = 0; i < nos.tamanhoNode(); i++){
+                if(nos.getNode(i).getFreq() < menor){
                     indice = i;
-                    menor = nos.get(i).getFreq();
+                    menor = nos.getNode(i).getFreq();
                 }
             }
             //variaveis de controle
             //associar o menor valor ao novo node
             //ressetar as variaveis
-            novo1 = nos.get(indice);
-            nos.remover(indice);
+            novo1 = nos.getNode(indice);
+            nos.removerNode(indice);
             menor = Integer.MAX_VALUE;
             
             //percorre a lista e pega o menor valor
-            for(int i = 0; i < nos.tamanhoDados(); i++){
-                if(nos.get(i).getFreq() < menor){
+            for(int i = 0; i < nos.tamanhoNode(); i++){
+                if(nos.getNode(i).getFreq() < menor){
                     indice = i;
-                    menor = nos.get(i).getFreq();
+                    menor = nos.getNode(i).getFreq();
                 }
             }
             //variaveis de controle
             //associar o menor valor ao novo node
             //ressetar as variaveis
-            novo2 = nos.get(indice);
-            nos.remover(indice);
+            novo2 = nos.getNode(indice);
+            nos.removerNode(indice);
             menor = Integer.MAX_VALUE;
             
             Node novo3 = new Node();
@@ -112,13 +112,13 @@ public class Huffman {
                 novo3.setDir(novo1);
             }
             
-            nos.inserir(novo3);
+            nos.inserirNode(novo3);
             
   
          }
        
         //parte 4 - atualiza raiz da arvore com o no que restou na lista | this.raiz = nos.get(0);
-         this.raiz = nos.get(0);
+         this.raiz = nos.getNode(0);
         //pode imprimir a arvore depois de atualizar a raiz para dar uma conferida
         this.print();
          //parte 5 - cria tabela de códigos 
@@ -134,38 +134,14 @@ public class Huffman {
         //codigos['a'][2] = 0;
         //codigos['a'][3] = 0;
         //codigos['a'][4] = 1;
-        int codigos[][] = new int[256][];
+        Lista codigos[][] = new Lista[256][];
         //percorre a arvore e cria a tabela
         percorrerArvore(raiz);
-        
-        
-        System.out.print("[");
-        for(int i = 0; i < listaFolha.tamanhoDados(); i++){
-            Node aux = new Node();
-            aux = listaFolha.get(i);
-            System.out.print(aux.getCaracter());
-            System.out.print(aux.getListaTamanho());
-            
+        for (int i=0; i< listaFolha.tamanhoNode(); i+=1) {
+            System.out.print("\n"+listaFolha.getNode(i).getCaracter()+": ");
+            listaFolha.getNode(i).printListaint();
         }
-        System.out.print("]");
-            
-
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        //parte 6 - preencher a tabela de códigos percorrendo a arvore, guardando o caminho em 
+       //parte 6 - preencher a tabela de códigos percorrendo a arvore, guardando o caminho em 
         //pilha e atualizando a tabela sempre que encontrar um nó folha
         //fiz um metodo auxiliar da pilha, para que seja possivel obter 
         //os valores da pilha sem ter que desempilhar e empilhar tudo denovo
@@ -178,7 +154,7 @@ public class Huffman {
         
         //CODIGO ILUSTRATIVO, NAO PRECISA ESTAR NA VERSAO FINAL
         //imprime tabela de código para os caracteres que tem frequencia maior que 0
-        for (int i=0; i< 256; i+=1) {
+        /*for (int i=0; i< 256; i+=1) {
             //soh imprime se a frequencia for maior que zero
             if (freq[i]>0) {
                 //imprime os caracteres que não são pulo de linhas
@@ -198,7 +174,7 @@ public class Huffman {
                 }
                 System.out.println();
             }
-        }
+        }*/
         
         //parte 7 - abre o arquivo binario
         file.abreArquivoBinarioEscrita(destino, freq);
@@ -209,7 +185,7 @@ public class Huffman {
         //parte 9 - percorre o arquivo texto, caracter a caracter, procurando 
         //o codigo para cada caracter e gravando a sequencia de bits com 
         //a funcao file.escreveBit        
-        while ( (caracter =(byte) file.leCaracterArquivoTexto()) != -1) {
+       /* ( (caracter =(byte) file.leCaracterArquivoTexto()) != -1) {
             System.out.print((char)caracter);
             //obtem o código
             int [] codigo = codigos[caracter];
@@ -219,7 +195,7 @@ public class Huffman {
             for (int i=0; i< codigo.length; i+=1) {
                 file.escreveBit(codigo[i]);               
             }
-        }
+        }*/
         
         //parte 10 - fecha arquivos
         file.fechaArquivoBinarioEscrita();
@@ -276,14 +252,14 @@ public class Huffman {
     private Node removeMenorFrequencia (Lista l) {
         int idx=-1;
         int menor = Integer.MAX_VALUE;
-        for (int i =0; i < l.tamanhoDados(); i+=1) {
-            if (l.get(i).getFreq() < menor) {
-                menor = l.get(i).getFreq();
+        for (int i =0; i < l.tamanhoNode(); i+=1) {
+            if (l.getNode(i).getFreq() < menor) {
+                menor = l.getNode(i).getFreq();
                 idx = i;
             }
         }            
-        Node result = l.get(idx);
-        l.remover(idx);
+        Node result = l.getNode(idx);
+        l.removerNode(idx);
         return result;
         
     }
@@ -332,12 +308,12 @@ public class Huffman {
         //nao eh folha, entao insere 0 na lista pq eh da esquerda e chama a funcao novamente
         if(!node.ehFolha()){
             if(node.getEsq() != null){
-                lista.inserirValor(0);
+                lista.inserirValorInt(0);
                 percorrerArvoreAux(node.getEsq(),lista);
             }
             //nao eh folha, entao insere 1 na lista pq eh da direita e chama a funcao novamente
             if(node.getDir() != null){
-                lista.inserirValor(1);
+                lista.inserirValorInt(1);
                 percorrerArvoreAux(node.getDir(),lista);
                 
             }
@@ -349,7 +325,8 @@ public class Huffman {
         //lista.printListaInt();
         //grava a informacao do codigo binario no proprio no folha
         if(node.getDir() == null && node.getEsq() == null){
-            node.setLista(lista);
+            
+            node.setListaInt(lista);
             /*verificando a lista int do node
             for(int i = 0; i < node.getLista().tamanholistaValor(); i++){
                 System.out.print(node.getListaValor(i));
@@ -359,7 +336,7 @@ public class Huffman {
             //adiciona o no folha na lista folha
             
             node.printLista();
-            listaFolha.inserir(node);
+            listaFolha.inserirNode(node);
             
         }
         // gerar uma lista com o caracter e a sequencia de bits
@@ -368,7 +345,7 @@ public class Huffman {
         
         //System.out.println("\n");
         //remove da lista para retornar ao proximo estagio
-        lista.removerValor();
+        lista.removerValorInt();
         return lista;
     
     }

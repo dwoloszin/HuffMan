@@ -17,7 +17,7 @@ public class Main {
         
         
         try {
-            if (args.length < 3) {
+            /*if (args.length < 3) {
                 System.out.println("Compactador / Descompactador de Huffman");
                 System.out.println("");
                 System.out.println("Uso:");
@@ -26,16 +26,16 @@ public class Main {
                 System.out.println("Descompactar: java -jar huffman.jar -d arquivoBinario.huf arquivoTexto.txt");
                 System.exit(1);
                 
-            }
+            }*/
             //HuffmanExemplo huf = new HuffmanExemplo ();
             Huffman huf = new Huffman ();
             
-            if (args[0].equals("-c")) {
-                huf.compactar(args[1], args[2]);
-            }
-            if (args[0].equals("-d")) {
-                huf.descompactar(args[1], args[2]);
-            }
+           // if (args[0].equals("-c")) {
+                huf.compactar("tigre.txt", "tigre.huf");
+            //}
+            //if (args[0].equals("-d")) {
+            //    huf.descompactar(args[1], args[2]);
+            //}
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -176,14 +176,14 @@ public class HuffmanExemplo {
     private Node removeMenorFrequencia (Lista l) {
         int idx=-1;
         int menor = Integer.MAX_VALUE;
-        for (int i =0; i < l.tamanhoDados(); i+=1) {
-            if (l.get(i).getFreq() < menor) {
-                menor = l.get(i).getFreq();
+        for (int i =0; i < l.tamanhoNode(); i+=1) {
+            if (l.getNode(i).getFreq() < menor) {
+                menor = l.getNode(i).getFreq();
                 idx = i;
             }
         }            
-        Node result = l.get(idx);
-        l.remover(idx);
+        Node result = l.getNode(idx);
+        l.removerNode(idx);
         return result;
         
     }
