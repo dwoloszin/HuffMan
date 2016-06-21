@@ -49,8 +49,12 @@ public class Lista {
         return data.get(idx);
     }
     
-    public int tamanho () {
+    public int tamanhoDados () {
         return data.size();
+    }
+    
+    public int tamanholistaValor () {
+        return listaValor.size();
     }
     
     public void printLista(){
@@ -64,11 +68,32 @@ public class Lista {
     
     public void clean(){
         listaValor.clear();
+        listaValor.clear();
     }
     
     public void printListaInt(){
         for(int i = 0; i < listaValor.size(); i++){
             System.out.print((int)listaValor.get(i) + ", ");
+        
+        }
+    
+    }
+    
+    public int getListaValor(int indice){
+    return (int)listaValor.get(indice);
+    
+    }
+    
+    public void printListaNoComValores(){
+        for(int i = 0; i < data.size(); i++){
+            System.out.print(data.get(i).getCaracter() + ":[");
+            Lista lista1 = new Lista();
+            lista1 = data.get(i).getLista();
+            for(int j = 0; j < lista1.tamanholistaValor(); j++){
+                System.out.print(lista1.getListaValor(j));  
+            
+            }
+            System.out.println("");
         
         }
     

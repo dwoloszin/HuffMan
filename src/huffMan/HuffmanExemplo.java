@@ -46,7 +46,7 @@ public class HuffmanExemplo {
         
         //seu código para criar a lista de nós vai aqui
         
-         //parte 3 - monta a arvore, iterando sobre a lista até ela ter tamanho 1
+         //parte 3 - monta a arvore, iterando sobre a lista até ela ter tamanhoDados 1
          //seu código de montagem da arvore na lista vai aqui
         
         //parte 4 - atualiza raiz da arvore com o no que restou na lista | this.raiz = nos.get(0);
@@ -56,7 +56,7 @@ public class HuffmanExemplo {
         //parte 5 - cria tabela de códigos 
         //SUGESTÃO - usar uma matriz de inteiros
         //sabemos que tem até 256 tipos diferente de caracteres na nossa tabela de 
-        //frequencia, mas ainda nao sabemos o tamanho dos códigos.
+        //frequencia, mas ainda nao sabemos o tamanhoDados dos códigos.
         //por exemplo:
         //a = 97... se o código para o caracter 'a' for 01001, então
         //codigos['a'] = codigos[97] = new int[5];
@@ -146,7 +146,7 @@ public class HuffmanExemplo {
         Lista nos = new Lista();
         //seu código de montagem da lista vai aqui
         
-        //parte 5 - monta a arvore, iterando sobre a lista até ela ter tamanho 1
+        //parte 5 - monta a arvore, iterando sobre a lista até ela ter tamanhoDados 1
         
         //seu código de montagem da arvore na lista vai aqui
         
@@ -176,7 +176,7 @@ public class HuffmanExemplo {
     private Node removeMenorFrequencia (Lista l) {
         int idx=-1;
         int menor = Integer.MAX_VALUE;
-        for (int i =0; i < l.tamanho(); i+=1) {
+        for (int i =0; i < l.tamanhoDados(); i+=1) {
             if (l.get(i).getFreq() < menor) {
                 menor = l.get(i).getFreq();
                 idx = i;

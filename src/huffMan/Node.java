@@ -24,6 +24,19 @@ public class Node {
         lista = new Lista();
      }
     
+    public int getListaValor(int indice){
+        return lista.getListaValor(indice);
+    
+    }
+    public int getListaTamanho(){
+        return lista.tamanholistaValor();
+    
+    }
+    
+    
+
+    
+    
     public void inserirlist(int valor){
         lista.inserirValor(valor);
     }
@@ -42,9 +55,13 @@ public class Node {
     }
     
     public void printLista(){
-        System.out.print("Node:");
-        lista.printListaInt();
-        System.out.println("\n");
+        //se esquerda e direita nulos, entao achei um no folha!
+        if(dir == null && esq == null){
+            System.out.print("Node [" + caracter + "] :");
+            lista.printListaInt();
+            System.out.println("\n");
+        }
+        
     
     }
     
