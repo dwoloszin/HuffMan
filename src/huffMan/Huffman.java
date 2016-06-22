@@ -137,10 +137,15 @@ public class Huffman {
         Lista codigos[][] = new Lista[256][];
         //percorre a arvore e cria a tabela
         percorrerArvore(raiz);
+        
         for (int i=0; i< listaFolha.tamanhoNode(); i+=1) {
             System.out.print("\n"+listaFolha.getNode(i).getCaracter()+": ");
             listaFolha.getNode(i).printListaint();
         }
+        //exemplo de pesquisa
+        valorbinario('a');
+        
+        
        //parte 6 - preencher a tabela de códigos percorrendo a arvore, guardando o caminho em 
         //pilha e atualizando a tabela sempre que encontrar um nó folha
         //fiz um metodo auxiliar da pilha, para que seja possivel obter 
@@ -182,20 +187,35 @@ public class Huffman {
         //parte 8 - reabre o arquivo texto
         file.abreArquivoTextoLeitura(origem);
         
+        
+        System.out.print(file.leCaracterArquivoTexto());
+        
+        /*
+        for(int i = 0;  i < valorbinario(file.leCaracterArquivoTexto()).length; i++){
+            System.out.print(file.leCaracterArquivoTexto());
+            System.out.print(valorbinario(file.leCaracterArquivoTexto())[i]);
+        }
+        */
+            
+                
+            
+        
+        
         //parte 9 - percorre o arquivo texto, caracter a caracter, procurando 
         //o codigo para cada caracter e gravando a sequencia de bits com 
         //a funcao file.escreveBit        
-       /* ( (caracter =(byte) file.leCaracterArquivoTexto()) != -1) {
+        while ( (caracter =(byte) file.leCaracterArquivoTexto()) != -1) {
             System.out.print((char)caracter);
             //obtem o código
-            int [] codigo = codigos[caracter];
+            
+            int [] codigo = valorbinario((char)caracter);
             if (codigo == null)
                 continue;
             //escreve os bits no arquivo binario 
             for (int i=0; i< codigo.length; i+=1) {
                 file.escreveBit(codigo[i]);               
             }
-        }*/
+        }
         
         //parte 10 - fecha arquivos
         file.fechaArquivoBinarioEscrita();
@@ -217,9 +237,89 @@ public class Huffman {
         file.abreArquivoTextoEscrita(destino);
         
         //parte 3 - monta a arvore de huffman a partir da tabela de frequencia (igual no compactar)
+         Lista nos = new Lista();
+        //percorre o vetor, caso o freq seja maior q ZERO, cria um node adicionando a letra e a frequencia. Insere na lista o NODE.
+         for (int i = 0; i < 256; i+=1) {
+            //soh imprime se a frequencia for maior que zero
+            if (freq[i]>0) {
+                Node node = new Node();
+                node.setFreq(freq[i]);
+                node.setCaracter((char)i);
+                nos.inserirNode(node);
+            }
+         }
+         //verificar se a lista esta correta. PRint List
+         //nos.printLista();
+        
+         //parte 3 - monta a arvore, iterando sobre a lista até ela ter tamanhoDados 1
+         //seu código de montagem da arvore na lista vai aqui
+         //variaveis de controle
+         Integer menor = Integer.MAX_VALUE;
+         Integer indice = 0;
+         Node novo1 = new Node();
+         Node novo2 = new Node();
+         
+         
+         //MONTAR A ARVORE
+         while(nos.tamanhoNode() > 1){
+             //percorre a lista e pega o menor valor
+            for(int i = 0; i < nos.tamanhoNode(); i++){
+                if(nos.getNode(i).getFreq() < menor){
+                    indice = i;
+                    menor = nos.getNode(i).getFreq();
+                }
+            }
+            //variaveis de controle
+            //associar o menor valor ao novo node
+            //ressetar as variaveis
+            novo1 = nos.getNode(indice);
+            nos.removerNode(indice);
+            menor = Integer.MAX_VALUE;
+            
+            //percorre a lista e pega o menor valor
+            for(int i = 0; i < nos.tamanhoNode(); i++){
+                if(nos.getNode(i).getFreq() < menor){
+                    indice = i;
+                    menor = nos.getNode(i).getFreq();
+                }
+            }
+            //variaveis de controle
+            //associar o menor valor ao novo node
+            //ressetar as variaveis
+            novo2 = nos.getNode(indice);
+            nos.removerNode(indice);
+            menor = Integer.MAX_VALUE;
+            
+            Node novo3 = new Node();
+            novo3.setFreq(novo1.getFreq() + novo2.getFreq());
+            
+            
+            // garante que o menor fique sempre a esquerda
+            if(novo1.getFreq() < novo2.getFreq()){
+                novo3.setEsq(novo1);
+                novo3.setDir(novo2);
+            }
+            else{
+                novo3.setEsq(novo2);
+                novo3.setDir(novo1);
+            }
+            
+            nos.inserirNode(novo3);
+            
+  
+         }
+       
+        //parte 4 - atualiza raiz da arvore com o no que restou na lista | this.raiz = nos.get(0);
+         this.raiz = nos.getNode(0);
+        //pode imprimir a arvore depois de atualizar a raiz para dar uma conferida
+        this.print();
+        
+        
+        
+        
         
         //parte 4 - monteagem da arvore - cria lista de nós com a informacao da tabela de frequencia
-        Lista nos = new Lista();
+        
         //seu código de montagem da lista vai aqui
         
         //parte 5 - monta a arvore, iterando sobre a lista até ela ter tamanhoDados 1
@@ -234,11 +334,28 @@ public class Huffman {
         //caracter encontrado no arquivo de texto        
        
         //exemplo da leitura bit a bit do arquivo
+        
+        Node nodeaux = raiz;
+        
         for (int i=0; i < numeroDeBitsParaLer; i+=1) {            
-            int bit = file.leBit();           
-                
+            int bit = file.leBit();
+            if(bit == 0){
+                nodeaux = nodeaux.getEsq();
+            }
+            else if(bit == 1){
+            nodeaux = nodeaux.getDir();
+            }
+            
+            if(nodeaux.ehFolha()){
+                file.escreveCaracter(nodeaux.getCaracter());
+                nodeaux = raiz;
+            }
             
         }
+        
+        
+        
+        
         
         //parte 8 fecha os arquivos
         file.fechaArquivoBinarioLeitura();
@@ -335,7 +452,7 @@ public class Huffman {
             
             //adiciona o no folha na lista folha
             
-            node.printLista();
+            //node.printLista();
             listaFolha.inserirNode(node);
             
         }
@@ -347,6 +464,19 @@ public class Huffman {
         //remove da lista para retornar ao proximo estagio
         lista.removerValorInt();
         return lista;
+    
+    }
+    
+    public int [] valorbinario(char caracter){
+        int [] resultado = null;
+        for(int i = 0; i < listaFolha.tamanhoNode(); i++){
+            if(listaFolha.getNode(i).getCaracter() == caracter){
+                resultado = listaFolha.getNode(i).getListaInt();
+            }
+            
+    
+    }
+    return resultado;
     
     }
     

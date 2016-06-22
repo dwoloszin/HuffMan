@@ -32,6 +32,7 @@ public class Main {
             
            // if (args[0].equals("-c")) {
                 huf.compactar("tigre.txt", "tigre.huf");
+                huf.descompactar("tigre.huf", "tigre2.txt");
             //}
             //if (args[0].equals("-d")) {
             //    huf.descompactar(args[1], args[2]);
