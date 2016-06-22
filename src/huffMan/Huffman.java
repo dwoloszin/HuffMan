@@ -143,7 +143,7 @@ public class Huffman {
             listaFolha.getNode(i).printListaint();
         }
         //exemplo de pesquisa
-        valorbinario('a');
+        //valorbinario('a');
         
         
        //parte 6 - preencher a tabela de códigos percorrendo a arvore, guardando o caminho em 
@@ -241,6 +241,7 @@ public class Huffman {
         //percorre o vetor, caso o freq seja maior q ZERO, cria um node adicionando a letra e a frequencia. Insere na lista o NODE.
          for (int i = 0; i < 256; i+=1) {
             //soh imprime se a frequencia for maior que zero
+             //parte 4 - monteagem da arvore - cria lista de nós com a informacao da tabela de frequencia
             if (freq[i]>0) {
                 Node node = new Node();
                 node.setFreq(freq[i]);
@@ -261,6 +262,9 @@ public class Huffman {
          
          
          //MONTAR A ARVORE
+         //seu código de montagem da lista vai aqui
+         //parte 5 - monta a arvore, iterando sobre a lista até ela ter tamanhoDados 1
+         //seu código de montagem da arvore na lista vai aqui
          while(nos.tamanhoNode() > 1){
              //percorre a lista e pega o menor valor
             for(int i = 0; i < nos.tamanhoNode(); i++){
@@ -308,8 +312,10 @@ public class Huffman {
             
   
          }
+       //parte 6 - atualiza raiz da arvore com o no que restou na lista | this.raiz = nos.get(0);
+        //pode imprimir a arvore depois de atualizar a raiz para dar uma conferida
+        //this.print ();
        
-        //parte 4 - atualiza raiz da arvore com o no que restou na lista | this.raiz = nos.get(0);
          this.raiz = nos.getNode(0);
         //pode imprimir a arvore depois de atualizar a raiz para dar uma conferida
         this.print();
@@ -318,17 +324,15 @@ public class Huffman {
         
         
         
-        //parte 4 - monteagem da arvore - cria lista de nós com a informacao da tabela de frequencia
         
-        //seu código de montagem da lista vai aqui
         
-        //parte 5 - monta a arvore, iterando sobre a lista até ela ter tamanhoDados 1
         
-        //seu código de montagem da arvore na lista vai aqui
         
-        //parte 6 - atualiza raiz da arvore com o no que restou na lista | this.raiz = nos.get(0);
-        //pode imprimir a arvore depois de atualizar a raiz para dar uma conferida
-        //this.print ();
+        
+        
+        
+        
+        
         
         //parte 7 - le bit a bit o arquivo binario, percorre a arvore e grava o 
         //caracter encontrado no arquivo de texto        
@@ -336,16 +340,19 @@ public class Huffman {
         //exemplo da leitura bit a bit do arquivo
         
         Node nodeaux = raiz;
-        
-        for (int i=0; i < numeroDeBitsParaLer; i+=1) {            
+        //percorre todo o arquivo e a arvore de acordo com os bits lidos e imprime o caracter qdo atigir um no folha
+        for (int i=0; i < numeroDeBitsParaLer; i++) {            
             int bit = file.leBit();
+            //se o bit for zero... percorre a arvore da esquerda
             if(bit == 0){
                 nodeaux = nodeaux.getEsq();
             }
-            else if(bit == 1){
+            //se o bit for um... percorre a arvore da direita
+            if(bit == 1){
             nodeaux = nodeaux.getDir();
             }
             
+            //encontrou uma folha, escreve o caracter correspondente no arquivo
             if(nodeaux.ehFolha()){
                 file.escreveCaracter(nodeaux.getCaracter());
                 nodeaux = raiz;
@@ -467,6 +474,7 @@ public class Huffman {
     
     }
     
+    //retorma o valor binario do caracter
     public int [] valorbinario(char caracter){
         int [] resultado = null;
         for(int i = 0; i < listaFolha.tamanhoNode(); i++){
